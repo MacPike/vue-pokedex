@@ -10,26 +10,21 @@
 </template>
 
 <script>
-import axios from 'axios';
-const pokeUrl = "https://pokeapi.co/api/v2/pokemon";
+
 export default {
     name: 'pokemon',
-    data() {
-        return {
-            pokemon: {
-                sprites: {}
-            },
-            pokeId: 1
+    computed: {
+        pokemon() {
+            return this.$store.state.pokemon;
         }
     },
     methods: {
-        fetchPokemonInfo: function () {
-            axios.get(pokeUrl + "/" + this.pokeId)
-                .then(({ data }) => this.pokemon = data);
+        fetchPokemonInfo: function (pokeId) {
+            this.$store.dispatch('getPokemon', this.pokeUrl + "/" + pokeId);
         }
     },
     created() {
-        this.fetchPokemonInfo();
+        this.fetchPokemonInfo(1);
     }
 }
 </script>

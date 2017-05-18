@@ -14,6 +14,9 @@ export const store = new Vuex.Store({
   getters: {
     api(state) {
       return state.api;
+    },
+    pokemon(state) {
+      return state.pokemon;
     }
   },
   mutations: {
@@ -21,11 +24,20 @@ export const store = new Vuex.Store({
       axios.get(payload).then(({
         data
       }) => state.api = data);
+    },
+    getInfo(state, pokeId) {
+      axios.get(pokeId)
+        .then(({
+          data
+        }) => state.pokemon = data);
     }
   },
   actions: {
-    getPokemon(context, payload) {
+    getPokemons(context, payload) {
       context.commit('getList', payload);
+    },
+    getPokemon(context, pokeId) {
+      context.commit('getInfo', pokeId);
     }
   }
 })

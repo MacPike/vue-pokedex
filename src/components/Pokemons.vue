@@ -5,7 +5,7 @@
       <div class="col-sm-6">
         <ul class="list-group">
           <li class="list-group-item" v-for="(pokemon, index) in api.results">
-            <a @click="getPokemon(index)">{{pokemon.name}}</a>
+            <a @click="fetchPokemonInfo(index)">{{pokemon.name}}</a>
           </li>
         </ul>
         <button class="btn btn-primary" v-if="api.previous" @click="previous">Vorige</button>
@@ -19,10 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios';
 import pokemon from './Pokemon'
-//const pokeUrl = "https://pokeapi.co/api/v2/pokemon";
-
 export default {
   name: "PokemonList",
   components: {
@@ -34,18 +31,21 @@ export default {
     }
   },
   methods: {
-    fetchPokemon: function (listUrl) {
-      this.$store.dispatch('getPokemon', listUrl);
+    fetchPokemons: function (listUrl) {
+      this.$store.dispatch('getPokemons', listUrl);
+    },
+    fetchPokemonInfo: function (pokeId) {
+      this.$store.dispatch('getPokemon', this.pokeUrl + "/" + (pokeId + 1));
     },
     next: function () {
-      this.fetchPokemon(this.api.next)
+      this.fetchPokemons(this.api.next)
     },
     previous: function () {
-      this.fetchPokemon(this.api.previous)
+      this.fetchPokemons(this.api.previous)
     }
   },
   created: function () {
-    this.fetchPokemon(this.pokeUrl);
+    this.fetchPokemons(this.pokeUrl);
   }
 }
 </script>
