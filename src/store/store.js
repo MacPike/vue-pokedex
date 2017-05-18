@@ -8,7 +8,9 @@ export const store = new Vuex.Store({
   state: {
     api: {},
     pokemon: {
-      sprites: {}
+      sprites: {},
+      types: [],
+      moves: []
     }
   },
   getters: {
