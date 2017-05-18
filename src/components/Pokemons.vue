@@ -8,8 +8,8 @@
             <a @click="getPokemon(index)">{{pokemon.name}}</a>
           </li>
         </ul>
-        <button class="btn btn-primary" v-if="api.previous" click="previous" @click="previous">Vorige</button>
-        <button class="btn btn-primary" v-if="api.next" click="next" @click="next">Volgende</button>
+        <button class="btn btn-primary" v-if="api.previous" @click="previous">Vorige</button>
+        <button class="btn btn-primary" v-if="api.next" @click="next">Volgende</button>
       </div>
       <div class="col-sm-6">
         <pokemon></pokemon>
@@ -21,25 +21,21 @@
 <script>
 import axios from 'axios';
 import pokemon from './Pokemon'
-const pokeUrl = "https://pokeapi.co/api/v2/pokemon";
+//const pokeUrl = "https://pokeapi.co/api/v2/pokemon";
 
 export default {
   name: "PokemonList",
   components: {
     pokemon
   },
-  data() {
-    return {
-      api: {},
+  computed: {
+    api() {
+      return this.$store.state.api;
     }
   },
   methods: {
-    fetchPokemon: function (pokeUrl) {
-      axios.get(pokeUrl)
-        .then(({ data }) => this.api = data);
-    },
-    getPokemon: function (index) {
-      console.log(index);
+    fetchPokemon: function (listUrl) {
+      this.$store.dispatch('getPokemon', listUrl);
     },
     next: function () {
       this.fetchPokemon(this.api.next)
@@ -49,7 +45,7 @@ export default {
     }
   },
   created: function () {
-    this.fetchPokemon(pokeUrl);
+    this.fetchPokemon(this.pokeUrl);
   }
 }
 </script>
