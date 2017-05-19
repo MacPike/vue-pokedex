@@ -18,7 +18,7 @@
         </table>
         <h3>Moves</h3>
         <ul class="list-group">
-            <li v-for="move in pokemon.moves" class="list-group-item">{{move.move.name}}</li>
+            <li v-for="move in pokemon.moves" class="list-group-item capi">{{move.move.name}}</li>
         </ul>
     </div>
 </template>

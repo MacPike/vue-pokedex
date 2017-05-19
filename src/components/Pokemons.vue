@@ -5,7 +5,7 @@
       <div class="col-sm-6">
         <ul class="list-group">
           <li class="list-group-item" v-for="(pokemon, index) in api.results">
-            <a @click="fetchPokemonInfo(index)">{{pokemon.name}}</a>
+            <a @click="fetchPokemonInfo(index)" class="capi">{{pokemon.name}}</a>
           </li>
         </ul>
         <button class="btn btn-primary" v-if="api.previous" @click="previous">Vorige</button>
@@ -50,6 +50,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+.list-group-item {
+  a {
+    color: black;
 
+    cursor: pointer;
+    &:hover {
+      text-shadow: 1px 1px 2px #CCC;
+      text-decoration: none;
+    }
+  }
+}
 </style>
+
